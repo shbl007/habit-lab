@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Fabil design tokens — quiet neutral light theme
+   ------------------------------------------------------------------ */
+@theme {
+  --color-canvas: #f1f2f4; /* page background */
+  --color-surface: #ffffff; /* form card */
+  --color-soft: #f7f8f9; /* hover fills, insets */
+  --color-ink: #17191f; /* primary text, primary button, progress */
+  --color-ink-hover: #2b2e36;
+  --color-muted: #6b6f78; /* secondary text (AA on white + canvas) */
+  --color-faint: #9ca1aa; /* placeholders, decorative icons */
+  --color-line: #e2e5e9; /* borders */
+  --color-line-strong: #c9ced5; /* hover borders */
+  --color-track: #d9dde3; /* progress track */
+  --color-done: #7d828c; /* completed progress segments */
+  --color-danger: #c4372b;
+  --color-danger-wash: #fdf3f2;
+  --color-positive: #2f7a4f;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-card: 0 0 0 1px rgb(23 25 31 / 0.02), 0 1px 2px rgb(23 25 31 / 0.04), 0 12px 32px -16px rgb(23 25 31 / 0.12);
+  --shadow-control: 0 1px 2px rgb(23 25 31 / 0.05);
+  --shadow-button: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 1px 2px rgb(23 25 31 / 0.25);
+
+  --animate-shimmer: shimmer 1.3s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% { transform: translateX(-120%); }
+    100% { transform: translateX(220%); }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background: var(--color-canvas);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(23 25 31 / 0.12);
+}
+
+/* Number fields show unit labels instead of spinners. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-ink);
+  caret-color: var(--color-ink);
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* Extremely faint grid, fading out towards the edges. */
+.canvas-grid {
+  background-image:
+    linear-gradient(to right, rgb(23 25 31 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(23 25 31 / 0.045) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, black 20%, transparent 80%);
+}
+
+.canvas-grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.09  0 0 0 0 0.1  0 0 0 0 0.12  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
